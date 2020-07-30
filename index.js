@@ -110,8 +110,13 @@ const fi = (function() {
             return  array.filter( onlyUnique );
         }else{
           function onlyUnique1(value, index, self) {
-            return callback(self[self.indexOf(value)]) === callback(index);
-
+            for(let i = 0; i < index ; i++) {
+              if (callback(value) === callback(self[i])) {
+                return false
+              }else{
+                return true ;
+              }
+             }
             }
             return  array.filter( onlyUnique1 );
         }

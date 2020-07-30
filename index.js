@@ -30,16 +30,100 @@ const fi = (function() {
 
     },
 
-    reduce: function() {
+    reduce: function(collection, callback, acc){
+      if(acc) {
+         return collection.reduce((x,y) => callback(x,y),acc)
+      }else {
+        return collection.reduce((x,y) => callback(x,y))
+      }
 
     },
-
-    functions: function() {
+    find: function(collection, prediction){
+      return  collection.find((x) => prediction(x));
+    },
+    filter: function(collection, prediction){
+      return  collection.filter((x) => prediction(x));
+    },
+    size: function(collection){
+      if(collection.length) {
+        return  collection.length
+      }else
+      {
+        let size = 0 ;
+        let key ;
+        for (key in collection) {
+         size += 1;
+      }
+        return  size;
+      }
 
     },
+  first: function(collection , n){
+        if(n){
+          let result = [];
+          for ( let i = 0 ; i < n ; i++ ) {
+           result.push(collection[i])
+          }
+            return result;
+        }else
+        {
+          return  collection[0];
+        }
+      },
 
+      last: function(collection , n){
+            if(n){
+              return collection.slice(Math.max(collection.length - n, 0))
 
-  }
-})()
+            }else
+            {
+              return  collection[collection.length - 1];
+            }
+          },
+
+      compact: function(collection ){
+        return collection.filter(x => !!x)
+        },
+
+    sortBy: function(array, callback){
+
+          return array.slice().sort(function(a, b){return a - b});
+      },
+
+      flatten : function (arr, shallow) {
+              if (shallow === true) {
+                return [].concat(...arr) ;
+              }else  {
+                while (arr.some((item) => Array.isArray(item))) {
+                   arr = [].concat(...arr)
+                 }
+                 return arr;
+              }
+
+          },
+
+      uniq : function (array, isSorted, callback) {
+        if (isSorted===undefined){
+          function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+            }
+            return  array.filter( onlyUnique );
+        }else{
+          function onlyUnique1(value, index, self) {
+            return callback(self[self.indexOf(value)]) === callback(index);
+
+            }
+            return  array.filter( onlyUnique1 );
+        }
+
+      },
+
+              functions: function() {
+
+              },
+
+            }
+          })()
+
 
 fi.libraryMethod()

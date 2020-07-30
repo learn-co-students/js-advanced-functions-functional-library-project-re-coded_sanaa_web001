@@ -113,22 +113,42 @@ const fi = (function() {
             for(let i = 0; i < index ; i++) {
               if (callback(value) === callback(self[i])) {
                 return false
-              }else{
-                return true ;
+                }
+                }
+              return true ;
+                }
+                return  array.filter( onlyUnique1 );
               }
-             }
-            }
-            return  array.filter( onlyUnique1 );
-        }
+          },
+        keys : function (object) {
+           let arr = [] ;
+           for (const property in object)  {
+             arr.push(property) ;
+           }
+          return arr;
+        },
+        values : function (object) {
+           let arr = [] ;
+           for (const property in object)  {
+             arr.push(object[property]) ;
+           }
+          return arr;
+        },
 
-      },
+    functions: function(object) {
+            let arr = [] ;
+              for (const property in object)  {
+              if( object[property] === "" ){}else{
+                arr.push(property) ;
+              }
 
-              functions: function() {
+              }
+              arr.sort();
+              return arr;
+        },
 
-              },
-
-            }
-          })()
+      }
+    })()
 
 
 fi.libraryMethod()
